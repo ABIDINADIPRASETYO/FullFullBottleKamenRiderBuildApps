@@ -6,6 +6,7 @@
               android:gravity="center"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+        android:background="#000000"
               tools:context=".MainActivity">
 
 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" >
@@ -49,13 +50,21 @@
 </RelativeLayout>
 
 
-    <ImageView
+  <!--  <ImageView
             android:id="@+id/imagemain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/red"
            android:background="@color/colorPrimary"
 
-            />
+            />-->
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_fileName="build.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
 
 </LinearLayout>

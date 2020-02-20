@@ -14,10 +14,13 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.appolica.flubber.Flubber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //tvShake = findViewById(R.id.tvShake);
        // btn = findViewById(R.id.btn);
-        img = (ImageView) findViewById(R.id.imagemain);
+        img = findViewById(R.id.animationView);
 
         imgh = (ImageView) findViewById(R.id.btnimagehazard);
 
@@ -64,46 +69,65 @@ public class MainActivity extends AppCompatActivity {
         imgh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.maxhazardon);
-                mMediaPlayer.start();
-                imgh.setImageResource(R.drawable.maxhazard);
-                showNotifHazard();
+
+                imgtank.setImageResource(R.drawable.hazarda);
+                imgrabbit.setImageResource(R.drawable.hazardb);
+                Flubber.with()
+                        .animation(Flubber.AnimationPreset.MORPH) // Slide up animation
+                        .repeatCount(0)                              // Repeat once
+                        .duration(500)                              // Last for 1000 milliseconds(1 second)
+                        .createFor(imgh)                             // Apply it to the view
+                        .start();
+
             }
         });
 
         imgrabbit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.bruwarior);
+                mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.tanktank);
                 mMediaPlayer.start();
                 imgrabbit.setImageResource(R.drawable.hazardbs);
-                showNotifTank();
+                Flubber.with()
+                        .animation(Flubber.AnimationPreset.SQUEEZE_RIGHT) // Slide up animation
+                        .repeatCount(1)                              // Repeat once
+                        .duration(300)                              // Last for 1000 milliseconds(1 second)
+                        .createFor(imgrabbit)                             // Apply it to the view
+                        .start();
+
             }
         });
 
         imgtank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.speedyjumper);
+                mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.dong);
                 mMediaPlayer.start();
                 imgtank.setImageResource(R.drawable.hazardas);
-                showNotifRabbit();
+                Flubber.with()
+                        .animation(Flubber.AnimationPreset.SQUEEZE_UP) // Slide up animation
+                        .repeatCount(1)                              // Repeat once
+                        .duration(300)                              // Last for 1000 milliseconds(1 second)
+                        .createFor(imgtank)                             // Apply it to the view
+                        .start();
+
             }
         });
 
+/*
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                img.setImageResource(R.drawable.red);
-                imgtank.setImageResource(R.drawable.hazarda);
-                imgrabbit.setImageResource(R.drawable.hazardb);
-                imgh.setImageResource(R.drawable.hazard);
-                NotificationManager notificationManagerC = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManagerC.cancelAll();
-                
+                Flubber.with()
+                        .animation(Flubber.AnimationPreset.FALL) // Slide up animation
+                        .repeatCount(1)                              // Repeat once
+                        .duration(300)                              // Last for 1000 milliseconds(1 second)
+                        .createFor(img)                             // Apply it to the view
+                        .start();
+
             }
         });
-
+*/
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -125,19 +149,39 @@ public class MainActivity extends AppCompatActivity {
                     mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.edgerabbit);
                     img.setImageResource(R.drawable.rabbit);
                     imgtank.setImageResource(R.drawable.hazardas);
+                    Flubber.with()
+                            .animation(Flubber.AnimationPreset.SQUEEZE_UP) // Slide up animation
+                            .repeatCount(1)                              // Repeat once
+                            .duration(500)                              // Last for 1000 milliseconds(1 second)
+                            .createFor(img)                             // Apply it to the view
+                            .start();
                 } else if(shake> 6 && shake<=11){
                     mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.dong);
                 } else if(shake==12){
                     img.setImageResource(R.drawable.tank);
                     mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.endgetankf);
                     imgrabbit.setImageResource(R.drawable.hazardbs);
+                    Flubber.with()
+                            .animation(Flubber.AnimationPreset.FLIP_Y) // Slide up animation
+                            .repeatCount(1)                              // Repeat once
+                            .duration(500)                              // Last for 1000 milliseconds(1 second)
+                            .createFor(img)                             // Apply it to the view
+                            .start();
                 }else if(shake>12 && shake <=17){
                     mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.tanktank);
                 } else if(shake == 18 ){
                     mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.ayuready);
                     img.setImageResource(R.drawable.rabbittank);
+                    Flubber.with()
+                            .animation(Flubber.AnimationPreset.ZOOM_IN) // Slide up animation
+                            .repeatCount(1)                              // Repeat once
+                            .duration(500)                              // Last for 1000 milliseconds(1 second)
+                            .createFor(img)                             // Apply it to the view
+                            .start();
+
                 } else if (shake == 19){
                     mMediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.song);
+
                 }
 
                 // Add OnCompletionListener to release the
